@@ -44,8 +44,10 @@ class ClientController extends Controller
     public function show($id)
     {
         //
+
         $clients = Client::all();
         return $clients->where('id',$id)->first();
+
     }
 
     /**
