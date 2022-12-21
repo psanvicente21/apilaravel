@@ -17,7 +17,7 @@ class ClientFactory extends Factory
             //
             'name' => $this->faker->name(),
             'cif' => $this->faker->name(),
-            'password' => $this->faker->name(),
+            'password' => $this->faker->password(),
             'state_id' => rand(0,1)
 
         ];
