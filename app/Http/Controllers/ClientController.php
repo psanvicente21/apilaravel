@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\App;
 class ClientController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Devuelve todos los clientes
      *
      * @return \Illuminate\Http\Response
      */
@@ -36,7 +36,7 @@ class ClientController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Devuelve un cliente dado un id
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
