@@ -21,8 +21,8 @@ Route::post('/auth/login', [AuthC::class, 'loginUser']);
 
 
 //Route::post('login', [App\Http\Controllers\Api\LoginController::class, 'login']);
-// Listado de clientes, necesario token para autorización
+// Recursos de API, necesario token para autorización
 Route::apiResource('clients', ClientC::class)->middleware('auth:sanctum');
 // Devuelve un cliente, necesario token para autorización.
-Route::get('/clients/{id}}', [ClientC::class, 'show'])->middleware('auth:sanctum');
+//Route::get('/clients/{id}}', [ClientC::class, 'show'])->middleware('auth:sanctum');
 
