@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Validator;
 class AuthController extends Controller
 {
     /**
-     * Create User
+     * Crea un usuario
      * @param Request $request
      * @return User
      */
@@ -44,7 +44,7 @@ class AuthController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'User Created Successfully',
-                'token' => $user->createToken("API TOKEN")->plainTextToken
+                'token' => $user->createToken("API TOKEN")->plainTextToken // Devuelve token al registrar usuario con éxito
             ], 200);
 
         } catch (\Throwable $th) {
@@ -56,7 +56,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Login The User
+     * Realiza el login de usuario
      * @param Request $request
      * @return User
      */
@@ -89,7 +89,7 @@ class AuthController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'User Logged In Successfully',
-                'token' => $user->createToken("API TOKEN")->plainTextToken
+                'token' => $user->createToken("API TOKEN")->plainTextToken // Devuelve un token al iniciar sesión con éxito
             ], 200);
 
         } catch (\Throwable $th) {
