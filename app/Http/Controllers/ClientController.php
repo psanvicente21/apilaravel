@@ -96,7 +96,7 @@ class ClientController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza el cliente en la base de datos.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -116,7 +116,7 @@ class ClientController extends Controller
                 'password' => 'string',
                 'state_id' => 'numeric|between:0,1'
             ]);
-            // incidencias.infocomputer@gmail.com
+
 
             if($validateUser->fails()){
                 return response()->json([
@@ -156,7 +156,7 @@ class ClientController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina un cliente de la BD dado un ID
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
