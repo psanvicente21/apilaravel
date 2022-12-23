@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use PhpParser\Node\Stmt\TryCatch;
 
+use function PHPUnit\Framework\isEmpty;
+
 class ClientController extends Controller
 {
     /**
@@ -87,6 +89,8 @@ class ClientController extends Controller
         //
 
         $clients = Client::all();
+        $clients->where('id',$id)->first();
+
         return $clients->where('id',$id)->first();
 
     }
