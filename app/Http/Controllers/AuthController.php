@@ -19,7 +19,7 @@ class AuthController extends Controller
     public function createUser(Request $request)
     {
         try {
-            //Validated
+            //Valida los datos recibidos en el request
             $validateUser = Validator::make($request->all(),
             [
                 'name' => 'required',
@@ -27,6 +27,7 @@ class AuthController extends Controller
                 'password' => 'required'
             ]);
 
+                // Si falla la validación
             if($validateUser->fails()){
                 return response()->json([
                     'status' => false,
@@ -34,6 +35,8 @@ class AuthController extends Controller
                     'errors' => $validateUser->errors()
                 ], 401);
             }
+
+            // En caso de no fallar, se crea el usuario y devuelve un token.
 
             $user = User::create([
                 'name' => $request->name,
@@ -68,6 +71,7 @@ class AuthController extends Controller
                 'email' => 'required|email',
                 'password' => 'required'
             ]);
+            // Si falla la validación
 
             if($validateUser->fails()){
                 return response()->json([
@@ -76,6 +80,8 @@ class AuthController extends Controller
                     'errors' => $validateUser->errors()
                 ], 401);
             }
+            // En caso de validación correcta, realiza el login.
+            // Datos requeridos: email, contraseña. (previamente se solicitó el token)
 
             if(!Auth::attempt($request->only(['email', 'password']))){
                 return response()->json([
