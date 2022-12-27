@@ -20,17 +20,12 @@ class ClientController extends Controller
      */
     public function index()
     {
-        //
-        /*
-        foreach (Client::all() as $client) {
-            echo $client->name;
-        }
-        */
+
         return Client::all();
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Inserta un nuevo cliente
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -40,7 +35,9 @@ class ClientController extends Controller
         // Una API suele excluir metodos tipo create
 
         try {
-            //Validated
+
+            // Validamos los datos recibidos en el request
+
             $validateUser = Validator::make($request->all(),
             [
                 'name' => 'required',
@@ -48,6 +45,8 @@ class ClientController extends Controller
                 'password' => 'required',
                 'state_id' => 'required|numeric|between:0,1'
             ]);
+
+            // Si falla la validación
 
             if($validateUser->fails()){
                 return response()->json([
@@ -67,7 +66,6 @@ class ClientController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'Client Created Successfully'
-                //'token' => $user->createToken("API TOKEN")->plainTextToken
             ], 200);
 
         } catch (\Throwable $th) {
@@ -104,55 +102,49 @@ class ClientController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-
-            $client = Client::where('id', $id)->first();
+        $client = Client::where('id', $id)->first();
 
 
-            $validateUser = Validator::make($request->all(),
-            [
-                'name' => 'string',
-                'cif' => 'string',
-                'password' => 'string',
-                'state_id' => 'numeric|between:0,1'
-            ]);
+        $validateUser = Validator::make($request->all(),
+        [
+            'name' => 'string',
+            'cif' => 'string',
+            'password' => 'string',
+            'state_id' => 'numeric|between:0,1'
+        ]);
 
 
-            if($validateUser->fails()){
-                return response()->json([
-                    'status' => false,
-                    'message' => 'validation error',
-                    'errors' => $validateUser->errors()
-                ], 401);
-            }
-            if($client == null){
+        if($validateUser->fails()){
+            return response()->json([
+                'status' => false,
+                'message' => 'validation error',
+                'errors' => $validateUser->errors()
+            ], 401);
+        }
+        if($client == null){
+            return response()->json([
+                'status' => true,
+                'message' => 'Client doesn\'t exists'
+
+            ], 200);
+        }else{
+            try {
+                $updatedClient = $request->all();
+                $updatedClient['password'] = Hash::make($request['password']);
+                $client->update($updatedClient);
+
                 return response()->json([
                     'status' => true,
-                    'message' => 'Client doesn\'t exists'
-
+                    'message' => 'Client Updated Successfully'
                 ], 200);
-            }else{
-                try {
-                    $updatedClient = $request->all();
-                    $updatedClient['password'] = Hash::make($request['password']);
-                    $client->update($updatedClient);
-
-                    //$client->save();
-                    return response()->json([
-                        'status' => true,
-                        'message' => 'Client Updated Successfully'
-                        //'message' => $request->cif
-                        //'token' => $user->createToken("API TOKEN")->plainTextToken
-                    ], 200);
-                } catch (\Throwable $th) {
-                    //throw $th;
-                    return response()->json([
-                        'status' => false,
-                        'message' => $th->getMessage()
-                    ], 500);
-                }
-
+            } catch (\Throwable $th) {
+                //throw $th;
+                return response()->json([
+                    'status' => false,
+                    'message' => $th->getMessage()
+                ], 500);
             }
+        }
     }
 
     /**
@@ -182,6 +174,5 @@ class ClientController extends Controller
                 'message' => $th->getMessage()
             ], 500);
         }
-
     }
 }
