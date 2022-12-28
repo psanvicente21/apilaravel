@@ -14,6 +14,7 @@ class Client extends Model
         'password',
         'state_id',
     ];
+    protected $hidden = ['password'];
     public function state(){
         return $this->belongsTo(State::class);
     }
