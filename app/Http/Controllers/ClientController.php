@@ -20,8 +20,14 @@ class ClientController extends Controller
      */
     public function index()
     {
-
         return Client::all();
+
+        //makeVisible hace visible un campo que tenemos como hidden
+        //return $clients = Client::all()->makeVisible('password')->toArray();
+
+        //makeHidden oculta un campo
+        //return $clients = Client::all()->makeHidden('cif')->toArray();
+
     }
 
     /**
